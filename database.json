@@ -1,0 +1,76 @@
+{
+  "products": [
+    {
+      "id": 1783102963285,
+      "name": "aa",
+      "image": "",
+      "stock": 110,
+      "price": 11,
+      "category": "",
+      "weight": 11,
+      "createdAt": "2026-07-03T18:22:43.285Z",
+      "updatedAt": "2026-07-03T18:34:26.751Z"
+    },
+    {
+      "id": 1783105256293,
+      "name": "aa",
+      "image": "",
+      "stock": 0,
+      "price": 0,
+      "category": "",
+      "weight": 12,
+      "createdAt": "2026-07-03T19:00:56.293Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1783102977695,
+      "orderNumber": "#ORD-001",
+      "customer": "umar",
+      "phone": "",
+      "date": "2026-07-03T18:22:57.698Z",
+      "status": "Jo'natilgan",
+      "warehouse": "Склад",
+      "address": "",
+      "comment": "",
+      "currency": "UZS",
+      "lines": [
+        {
+          "id": 1783102974640,
+          "productId": 1783102963285,
+          "name": "aa",
+          "image": "",
+          "qty": 1,
+          "price": 0,
+          "discount": 0
+        }
+      ],
+      "createdAt": "2026-07-03T18:22:57.695Z"
+    },
+    {
+      "id": 1783103363017,
+      "orderNumber": "#ORD-002",
+      "customer": "Eko",
+      "phone": "",
+      "date": "2026-07-03T18:29:23.021Z",
+      "status": "Jo'natilgan",
+      "warehouse": "Склад",
+      "address": "",
+      "comment": "",
+      "currency": "UZS",
+      "lines": [
+        {
+          "id": 1783103314764,
+          "productId": 1783102963285,
+          "name": "aa",
+          "image": "",
+          "qty": 1,
+          "price": 0,
+          "discount": 0
+        }
+      ],
+      "createdAt": "2026-07-03T18:29:23.017Z"
+    }
+  ],
+  "users": []
+}
