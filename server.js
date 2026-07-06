@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -49,7 +51,50 @@ function writeDatabase(data) {
   }
 }
 
+// ==================== SWAGGER API DOCUMENTATION ====================
+
+// Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'Admin Panel API'
+}));
+
+// Swagger JSON
+app.get('/api-docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
+
 // ==================== MAHSULOTLAR (PRODUCTS) ====================
+
+/**
+ * @swagger
+ * /api/products:
+ *   get:
+ *     summary: Barcha mahsulotlarni olish
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: Muvaffaqiyatli
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Product'
+ *       500:
+ *         description: Server xatosi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Error'
+ */
 
 // Barcha mahsulotlarni olish
 app.get('/api/products', (req, res) => {
@@ -60,6 +105,60 @@ app.get('/api/products', (req, res) => {
     res.status(500).json({ success: false, message: 'Xatolik yuz berdi', error: error.message });
   }
 });
+
+/**
+ * @swagger
+ * /api/products:
+ *   post:
+ *     summary: Yangi mahsulot qo'shish
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - name
+ *               - weight
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: Coca Cola
+ *               image:
+ *                 type: string
+ *                 example: https://example.com/image.jpg
+ *               stock:
+ *                 type: integer
+ *                 example: 1000
+ *               price:
+ *                 type: number
+ *                 example: 1.50
+ *               category:
+ *                 type: string
+ *                 example: Ichimliklar
+ *               weight:
+ *                 type: integer
+ *                 example: 500
+ *               packQuantity:
+ *                 type: integer
+ *                 example: 24
+ *     responses:
+ *       200:
+ *         description: Mahsulot muvaffaqiyatli qo'shildi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   $ref: '#/components/schemas/Product'
+ *       500:
+ *         description: Server xatosi
+ */
 
 // Yangi mahsulot qo'shish
 app.post('/api/products', (req, res) => {
